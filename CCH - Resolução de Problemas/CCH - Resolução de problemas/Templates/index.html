@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palette Generator</title>
+</head>
+<body>
+    <h1>Palette Generator</h1>
+    <button onclick="generatePalette()">Generate Palette</button>
+    <div id="colorPalette"></div>
+
+    <script>
+        function generatePalette() {
+            fetch('/generate_palette')
+                .then(response => response.json())
+                .then(data => displayPalette(data.colors));
+        }
+
+        function displayPalette(colors) {
+            const paletteContainer = document.getElementById('colorPalette');
+            paletteContainer.innerHTML = '';
+
+            colors.forEach(color => {
+                const colorBox = document.createElement('div');
+                colorBox.style.backgroundColor = color;
+                colorBox.className = 'color-box';
+                paletteContainer.appendChild(colorBox);
+            });
+        }
+    </script>
+</body>
+</html>
